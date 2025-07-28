@@ -44,4 +44,4 @@ All rights reserved © 2025 Probal Saha.
 
 ---
 
-⭐ Designed & Developed with ❤ by [@probalsentinel](https://github.com/probalintel)
+⭐ Designed & Developed with ❤ by [@probalintel](https://github.com/probalintel)
