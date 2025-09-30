@@ -258,3 +258,23 @@ fetch('certifications.json')
       });
     })
     .catch(error => console.error("Failed to load certifications:", error));
+
+fetch('projects.json')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById("projects-container");
+
+    data.forEach(project => {
+      const card = document.createElement("a");
+      card.className = "project-card";
+      card.href = project.link;
+      card.target = "_blank";
+      card.innerHTML = `
+        <img src="${project.image}" alt="${project.title}">
+        <h3>${project.title}</h3>
+        <p>${project.description}</p>
+      `;
+      container.appendChild(card);
+    });
+  })
+  .catch(error => console.error("Failed to load projects:", error));
