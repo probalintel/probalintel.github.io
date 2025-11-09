@@ -188,6 +188,35 @@
 
     <footer>
       <br>
+      <!-- Visitor message form (Footer) -->
+<div id="visitor-form-wrapper" class="footer-contact-form" aria-labelledby="visitor-form-heading">
+  <h3 id="visitor-form-heading">Send me a message</h3>
+
+  <form id="visitor-form" onsubmit="submitVisitorForm(event)" novalidate>
+    <label for="visitor-name" class="visually-hidden">Your name</label>
+    <input type="text" id="visitor-name" name="name" placeholder="Your name" required>
+
+    <label for="visitor-email" class="visually-hidden">Your email</label>
+    <input type="email" id="visitor-email" name="email" placeholder="Your email" required>
+
+    <label for="visitor-message" class="visually-hidden">Your message</label>
+    <textarea id="visitor-message" name="message" placeholder="Your message" rows="4" required></textarea>
+
+    <!-- Honeypot: bots often fill hidden fields. Keep this off-screen, not display:none -->
+    <div class="hp-field" aria-hidden="true">
+      <label for="visitor-hp">Leave this field empty</label>
+      <input type="text" id="visitor-hp" name="hp" autocomplete="off" tabindex="-1" />
+    </div>
+
+    <button type="submit" id="visitor-submit">Send message</button>
+
+    <div id="visitor-form-status" aria-live="polite" role="status"></div>
+
+    <p class="privacy-note" style="margin-top:.5rem; font-size:.9rem; color: #dfeee2;">
+      By sending this message you consent to store your name and email for contact purposes only. I keep this data private.
+    </p>
+  </form>
+</div>
       <br>
   <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: nowrap; margin-bottom: 0.5rem;">
     <span style="margin-right: 0.5rem;">Contact:</span>
@@ -372,6 +401,7 @@
   
 </body>
 </html>
+
 
 
 
