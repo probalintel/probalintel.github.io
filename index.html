@@ -277,8 +277,28 @@
   const FRONTEND_SECRET = "s3cret-abc-12345"; // must match server SECRET
   // ----------------------------
 
-  async function submitVisitorForm(e) {
-    e.preventDefault();
+ async function submitVisitorForm(e) {
+  e.preventDefault();
+  const url = VISITOR_SCRIPT_URL; // Apps Script URL
+  const data = new URLSearchParams();
+  data.append('secret', FRONTEND_SECRET);
+  data.append('name', name);
+  data.append('email', email);
+  data.append('message', message);
+  data.append('ts', new Date().toISOString());
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: data.toString()
+    });
+    const json = await res.json();
+    console.log(json);
+  } catch (err) {
+    console.error(err);
+  }
+}
 
     const statusEl = document.getElementById('visitor-form-status');
     const submitBtn = document.getElementById('visitor-submit');
@@ -618,6 +638,7 @@
   
 </body>
 </html>
+
 
 
 
