@@ -277,6 +277,76 @@
 
     typeChar();
   }
+
+  // ---------- Config - update these ----------
+const VISITOR_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw3ojAieEmKtZo149A_kvr9zuVxjYdV4RMvG_IBxgksDzI0oeDAAj7wJ3AcspUmkEM/exec"; // apps script "exec" URL
+const FRONTEND_SECRET = "s3cret-abc-12345"; // secret token (optional but recommended)
+// -------------------------------------------
+
+async function submitVisitorForm(e) {
+  e.preventDefault();
+
+  const statusEl = document.getElementById('visitor-form-status');
+  const submitBtn = document.getElementById('visitor-submit');
+
+  const name = document.getElementById('visitor-name').value.trim();
+  const email = document.getElementById('visitor-email').value.trim();
+  const message = document.getElementById('visitor-message').value.trim();
+  const honeypot = document.getElementById('visitor-hp').value.trim();
+
+  // quick client validation
+  if (!name || !email || !message) {
+    statusEl.textContent = "Please fill all fields.";
+    return;
+  }
+
+  // prevent super long submissions
+  if (message.length > 4000) {
+    statusEl.textContent = "Message is too long.";
+    return;
+  }
+
+  // If honeypot filled (bot) — do not submit
+  if (honeypot !== "") {
+    statusEl.textContent = "Detected as spam; message not sent.";
+    return;
+  }
+
+  const payload = {
+    secret: FRONTEND_SECRET,
+    name,
+    email,
+    message,
+    ts: new Date().toISOString()
+  };
+
+  submitBtn.disabled = true;
+  statusEl.textContent = "Sending...";
+
+  try {
+    const response = await fetch(VISITOR_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (response.ok && result && result.result === "success") {
+      statusEl.textContent = "Message sent — thank you!";
+      document.getElementById('visitor-form').reset();
+    } else if (result && result.message) {
+      statusEl.textContent = "Error: " + result.message;
+    } else {
+      statusEl.textContent = "Unexpected error sending message.";
+    }
+  } catch (err) {
+    console.error("Submit error:", err);
+    statusEl.textContent = "Network error — try again later.";
+  } finally {
+    submitBtn.disabled = false;
+  }
+}
 </script>
 
 <!-- Button to redirect google drive resume(Style) -->
@@ -466,6 +536,7 @@
   
 </body>
 </html>
+
 
 
 
