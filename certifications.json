@@ -1,4 +1,11 @@
 [
+ {
+    "title": "Certified Network Security Practitioner (CNSP)",
+    "issuer": "The SecOps Group",
+    "date": "Nov 2025",
+    "image": "images/Certifications/CNSP.png",
+    "link": "https://candidate.speedexam.net/certificate.aspx?SSTATE=am4131EniU8ntjp4bO5mXWc4/ePzhS5bnGsJmTNxTZPnY0HNuDWB99XS5rm0/sedUZTMsA9Bz8cTY1IbQshWYKnwd9lc/2t6qQd3o+kIDMY="
+  }, 
   {
     "title": "Cyber Threat Intelligence 101",
     "issuer": "ArcX",
